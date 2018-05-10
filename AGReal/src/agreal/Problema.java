@@ -5,10 +5,6 @@
  */
 package agreal;
 
-/**
- *
- * @author fernando
- */
 public class Problema {
     
     public void calcularFuncaoObjetivo(Individuo individuo) {

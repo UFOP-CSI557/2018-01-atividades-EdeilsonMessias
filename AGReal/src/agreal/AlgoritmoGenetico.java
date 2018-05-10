@@ -32,8 +32,11 @@ public class AlgoritmoGenetico {
     Double maximo;
     // Variáveis
     Integer nVariaveis;
+    // Tipo Crossover
+    Crossover crossover;
+    
 
-    public AlgoritmoGenetico(Integer tamanho, Double pCrossover, Double pMutacao, Integer geracoes, Problema problema, Double minimo, Double maximo, Integer nVariaveis) {
+    public AlgoritmoGenetico(Integer tamanho, Double pCrossover, Double pMutacao, Integer geracoes, Problema problema, Double minimo, Double maximo, Integer nVariaveis, Crossover crossover) {
         this.tamanho = tamanho;
         this.pCrossover = pCrossover;
         this.pMutacao = pMutacao;
@@ -42,6 +45,7 @@ public class AlgoritmoGenetico {
         this.minimo = minimo;
         this.maximo = maximo;
         this.nVariaveis = nVariaveis;
+        this.crossover = crossover;
     }
 
     Populacao populacao;
@@ -87,15 +91,8 @@ public class AlgoritmoGenetico {
                     // Progenitores
                     Individuo p1 = populacao.getIndividuos().get(ind1);
                     Individuo p2 = populacao.getIndividuos().get(ind2);
-
-                    // Ponto de corte
-                    int corte = rnd.nextInt(p1.getVariaveis().size());
-
-                    // Descendente 1 -> Ind1_1 + Ind2_2;
-                    crossoverUmPonto(p1, p2, desc1, corte);
-
-                    // Descendente 2 -> Ind2_1 + Ind1_2;
-                    crossoverUmPonto(p2, p1, desc2, corte);
+                    
+                    crossover.aplicarOperador(p1, p2, desc1, desc2);
 
                     // Mutação
                     // Descendente 1
@@ -135,28 +132,6 @@ public class AlgoritmoGenetico {
         }
         
         return populacao.getIndividuos().get(0).getFuncaoObjetivo();
-    }
-
-    private void crossoverUmPonto(Individuo ind1, Individuo ind2, Individuo descendente, int corte) {
-
-        // Crossover aritmetico - 1 ponto de corte
-        Random rnd = new Random();
-        Double alpha = rnd.nextDouble();
-
-        // Ind1_1
-        // alpha * P1
-        for (int i = 0; i < corte; i++) {
-            Double valor = alpha * ind1.getVariaveis().get(i);
-            descendente.getVariaveis().add(valor);
-        }
-
-        // Ind2_2
-        // (1 - alpha) * P2
-        for (int i = corte; i < this.nVariaveis; i++) {
-            Double valor = (1.0 - alpha) * ind2.getVariaveis().get(i);
-            descendente.getVariaveis().add(valor);
-        }
-
     }
 
     private void mutacaoPorVariavel(Individuo individuo) {

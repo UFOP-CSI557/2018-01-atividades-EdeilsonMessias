@@ -18,16 +18,19 @@ public class AGReal {
 
         Problema problema = new Problema();
 
-        Integer tamanho = 50;
-        Double pCrossover = 0.005;
-        Double pMutacao = 0.05;
+        Integer tamanho = 100;
+        Double pCrossover = 0.01;
+        Double pMutacao = 0.0008;
         Integer geracoes = 300;
         
         Double minimo = -5.12;
         Double maximo = 5.12;
         Integer nVariaveis = 100;
+        
+//        Crossover operador = new UmPonto();
+        Crossover operador = new Blender();
 
-        AlgoritmoGenetico ag = new AlgoritmoGenetico(tamanho, pCrossover, pMutacao, geracoes, problema, minimo, maximo, nVariaveis);
+        AlgoritmoGenetico ag = new AlgoritmoGenetico(tamanho, pCrossover, pMutacao, geracoes, problema, minimo, maximo, nVariaveis, operador);
         
         System.out.println("Melhor resultado: " + ag.executar());
     }
