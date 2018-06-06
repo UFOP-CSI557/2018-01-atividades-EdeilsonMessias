@@ -39,7 +39,7 @@ public class Teste {
                     case 1:
                     	// Parametros - ES
                     	Integer nVariaveis = 100;
-                        Integer mu = 100; // Tamanho da populacao
+                        Integer mu = 60; // Tamanho da populacao
                         Integer lambda = 100; // numero de descendentes
                         Integer geracoes = 300; // criterio de parada
                         Double pMutacao = 0.08; // mutacao - aplicacao ao descendente - variacao/perturbacao
@@ -55,7 +55,7 @@ public class Teste {
                     	// Parametros - DE
                     	int D = 100;
                 		int gmax = 300;
-                		int Np = 100;
+                		int Np = 60;
                 		double F = 0.001;
                 		double Cr = 0.8;
                 		problema = new ProblemaRastrigin(D);
@@ -70,7 +70,7 @@ public class Teste {
                 long endTime = System.currentTimeMillis();
                 long totalTime = endTime - startTime;
 
-                System.out.println(nomes.get(teste - 1) + "\t" + result + "\t" + totalTime);
+                System.out.println(nomes.get(teste - 1) + ";" + result + ";" + totalTime);
                 System.out.flush();
             }
         }
